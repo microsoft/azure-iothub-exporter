@@ -1,8 +1,10 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+
 package eventhub
 
 import (
 	"context"
-	"fmt"
 
 	eventhub "github.com/Azure/azure-event-hubs-go/v3"
 	"github.com/microsoft/azure-iothub-exporter/metrics"
@@ -12,6 +14,7 @@ import (
 type EventHubListener struct {
 	metricsqueue             *metrics.MetricsQueue
 	eventHubSonnectionString string
+	hub                      *eventhub.Hub
 }
 
 func NewEventHubListener(eventHubSonnectionString string, metricsqueue *metrics.MetricsQueue) *EventHubListener {
@@ -22,11 +25,15 @@ func NewEventHubListener(eventHubSonnectionString string, metricsqueue *metrics.
 }
 
 func (p *EventHubListener) newMessageHangdler(c context.Context, event *eventhub.Event) error {
-	fmt.Println(string(event.Data))
+	log.Info("New message has arrived from Event Hub")
+	log.Debugln("===========message start=========")
+	log.Debug(string(event.Data))
+	log.Debugln("===========message end=========")
 	p.metricsqueue.Enqueue(string(event.Data))
 	return nil
 }
 
+//https://github.com/Azure/azure-event-hubs-go
 func (p *EventHubListener) Run() {
 	hub, err := eventhub.NewHubFromConnectionString(p.eventHubSonnectionString)
 	if err != nil {
@@ -34,6 +41,7 @@ func (p *EventHubListener) Run() {
 		return
 	}
 
+	p.hub = hub
 	ctx := context.Background()
 
 	runtimeInfo, err := hub.GetRuntimeInformation(ctx)
@@ -43,20 +51,19 @@ func (p *EventHubListener) Run() {
 	}
 
 	for _, partitionID := range runtimeInfo.PartitionIDs {
-		// Start receiving messages
-		//
-		// Receive blocks while attempting to connect to hub, then runs until listenerHandle.Close() is called
-		// <- listenerHandle.Done() signals listener has stopped
-		// listenerHandle.Err() provides the last error the receiver encountered
-		fmt.Println(partitionID)
 		_, err := hub.Receive(ctx, partitionID, p.newMessageHangdler, eventhub.ReceiveWithLatestOffset())
 		if err != nil {
-			log.Error(err)
+			log.Fatal(err)
 			return
 		}
-		//time.Sleep(2 * time.Second)
-
-		//listenerHandler.Close(ctx)
 	}
+	log.Info("Event Hub listener has started")
+}
 
+func (p *EventHubListener) Close() {
+	err := p.hub.Close(context.Background())
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.Info("Hub is closed")
 }

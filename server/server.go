@@ -1,4 +1,7 @@
-package main
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+
+package server
 
 import (
 	"fmt"
@@ -14,6 +17,10 @@ type IoTMetricsServer struct {
 	registry     *prometheus.Registry
 	metricsqueue *metrics.MetricsQueue
 }
+
+const (
+	PrometheusPort = "8080"
+)
 
 func NewIoTMetricsServer(metricsqueue *metrics.MetricsQueue) *IoTMetricsServer {
 	ioTMetricsServer := new(IoTMetricsServer)
@@ -62,6 +69,7 @@ func (p *IoTMetricsServer) queryMetrics(regsitry *prometheus.Registry) []*promet
 
 				regsitry.Register(gaugeVec)
 				registeredMetrics[ioTMetric.Name] = gaugeVec
+				log.Debugf("Metrics %v has been registered ro response", ioTMetric.Name)
 			}
 
 			gaugeVec.With(labelValues).Set(ioTMetric.Value)
@@ -73,32 +81,26 @@ func (p *IoTMetricsServer) queryMetrics(regsitry *prometheus.Registry) []*promet
 		log.Info("There is no new metrics")
 	}
 
+	log.Infof("%v merics to respond", len(promMetrics))
 	return promMetrics
 }
-
-// fmt.Println(iotmetrics[1].Name)
-// fmt.Println(iotmetrics[1].TimeGeneratedUtc)
-// fmt.Println(iotmetrics[1].Value)
-
-// for key, value := range iotmetrics[1].Labels {
-// 	fmt.Println(key, value)
-// }
 
 func (p *IoTMetricsServer) handleIotRequest(w http.ResponseWriter, r *http.Request) {
 	defer p.handleIotRequestPanic(w, r)
 
-	// iotEventHubClient := NewIotEventHubClient(w, r)
-	// prober.AddWorkspaces(opts.Loganalytics.Workspace...)
-	// prober.Run()
-
 	registry := prometheus.NewRegistry()
-
 	p.queryMetrics(registry)
-
-	// for _, metric := range metrics {
-	// 	registry.Register(metric)
-	// }
 
 	h := promhttp.HandlerFor(registry, promhttp.HandlerOpts{})
 	h.ServeHTTP(w, r)
+}
+
+func (p *IoTMetricsServer) StartHttpServer() {
+	http.Handle("/metrics", promhttp.Handler())
+
+	http.HandleFunc("/iotmetrics", p.handleIotRequest)
+
+	log.Infof("Starting HTTP server to listen on: %v /n %v", "/metrics", "/iotmetrics")
+
+	log.Fatal(http.ListenAndServe(":"+PrometheusPort, nil))
 }

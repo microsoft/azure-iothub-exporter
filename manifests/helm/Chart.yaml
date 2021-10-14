@@ -1,0 +1,10 @@
+apiVersion: v2
+name: azure-iothub-exporter
+description: A Helm chart for Azure IoT Hub Exporter
+
+type: application
+
+version: $APP_BUILD_VERSION
+
+appVersion: $APP_BUILD_VERSION
+

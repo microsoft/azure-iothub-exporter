@@ -1,0 +1,4 @@
+imageName: ghcr.io/azure/gitops-connector
+imageTag: $IMAGE_TAG
+containerPort: 8080
+servicePort: 8080

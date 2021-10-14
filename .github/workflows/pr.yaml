@@ -1,0 +1,22 @@
+name: PR
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  code_quality_checks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - uses: golangci/golangci-lint-action@v2.5.2
+        name: Go Linting
+      - uses: hadolint/hadolint-action@v1.5.0
+        name: Docker Linting
+      - name: MD Linting
+        uses: actionshub/markdownlint@main       
+      - name: Stay woke
+        uses: get-woke/woke-action@v0
+        with:
+          fail-on-error: true              

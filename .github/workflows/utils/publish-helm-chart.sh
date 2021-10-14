@@ -16,8 +16,8 @@ helm package $FOLDER_WITH_CHART
 
 DEST_BRANCH="gh-pages"
 
-pr_user_name="Git Ops"
-pr_user_email="agent@gitops.com"
+pr_user_name="Git Hub"
+pr_user_email="agent@github.com"
 
 git config --global user.email $pr_user_email
 git config --global user.name $pr_user_name
@@ -30,14 +30,12 @@ repo_url="https://automated:$TOKEN@$repo_url"
 
 echo "git clone $repo_url -b $DEST_BRANCH --depth 1 --single-branch"
 
-git clone $repo_url -b $DEST_BRANCH --depth 1 --single-branch
+git clone $repo_url -b $DEST_BRANCH --depth 1 --single-branch gh_pages
 
 echo "git clone"
 
-repo=${CHART_REPO_NAME##*/}
-repo_name=${repo%.*}
-cp *.tgz $repo_name/
-cd $repo_name
+cp *.tgz gh_pages/
+cd gh_pages
 helm repo index . --url $CHART_REPO_URL
 
 git add -A

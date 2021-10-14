@@ -1,4 +1,4 @@
-# Azure IoT Bub exporter
+# Azure IoT Hub exporter
 
 Prometheus exporter for Azure IoT Hub
 

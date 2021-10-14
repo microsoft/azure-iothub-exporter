@@ -12,7 +12,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - uses: golangci/golangci-lint-action@v2.5.2
-        name: Linting
+        name: Go Linting
       - uses: hadolint/hadolint-action@v1.5.0
         name: Docker Linting
       - name: MD Linting
@@ -43,7 +43,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          context: ./src
+          context: .
           tags: ghcr.io/eedorenko/azure-iothub-exporter:${{ env.IMAGE_TAG }}, ghcr.io/eedorenko/azure-iothub-exporter:latest         
       - name: Upload Image Tags
         uses: actions/upload-artifact@v2.2.2

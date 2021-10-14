@@ -44,7 +44,7 @@ jobs:
         with:
           push: true
           context: .
-          tags: ghcr.io/eedorenko/azure-iothub-exporter:${{ env.IMAGE_TAG }}, ghcr.io/eedorenko/azure-iothub-exporter:latest         
+          tags: ghcr.io/microsoft/azure-iothub-exporter:${{ env.IMAGE_TAG }}, ghcr.io/microsoft/azure-iothub-exporter:latest         
       - name: Upload Image Tags
         uses: actions/upload-artifact@v2.2.2
         with:

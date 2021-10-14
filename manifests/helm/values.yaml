@@ -1,4 +1,4 @@
-imageName: ghcr.io/azure/gitops-connector
+imageName: ghcr.io/microsoft/azure-iothub-exporter
 imageTag: $IMAGE_TAG
 containerPort: 8080
 servicePort: 8080

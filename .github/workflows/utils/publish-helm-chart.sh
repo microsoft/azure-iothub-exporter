@@ -3,6 +3,7 @@
 
 #!/usr/bin/env bash
 
+
 # Usage:
 # publish_helm_chart.sh FOLDER_WITH_CHART CHART_REPO_NAME CHART_REPO_URL
 

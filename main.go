@@ -21,7 +21,6 @@ func main() {
 	metricsQueue := metrics.NewMetricsQueue()
 
 	eventHubConnectionString := os.Getenv("EVENT_HUB_CONNECTION_STRING")
-	eventHubConnectionString = "Endpoint=sb://iothub-ns-iotstarter-14938303-44c1d9af3e.servicebus.windows.net/;SharedAccessKeyName=iothubowner;SharedAccessKey=GAfYONV+2n8Bvv3dteY90PXD61wuW8osjcNIUOJ4BZo=;EntityPath=iotstarter-iothub"
 	eventHubListener := eventhub.NewEventHubListener(eventHubConnectionString, metricsQueue)
 	eventHubListener.Run()
 

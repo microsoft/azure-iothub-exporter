@@ -67,7 +67,10 @@ func (p *IoTMetricsServer) queryMetrics(regsitry *prometheus.Registry) []*promet
 				}, labelNames,
 				)
 
-				regsitry.Register(gaugeVec)
+				err := regsitry.Register(gaugeVec)
+				if err != nil {
+					log.Warnf("Error registering mecric %v:%v", ioTMetric.Name, err)
+				}
 				registeredMetrics[ioTMetric.Name] = gaugeVec
 				log.Debugf("Metrics %v has been registered ro response", ioTMetric.Name)
 			}

@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  azure-iothub-exporter:
+  - apiVersion: v2
+    appVersion: 0.0.1-10
+    created: "2021-10-14T23:41:37.347889332Z"
+    description: A Helm chart for Azure IoT Hub Exporter
+    digest: eaba7feb62f08c4a9d303ffcfad7cd7593f0d959b1e1a044015208bfa2c2fef4
+    name: azure-iothub-exporter
+    type: application
+    urls:
+    - https://microsoft.github.io/azure-iothub-exporter/azure-iothub-exporter-0.0.1-10.tgz
+    version: 0.0.1-10
+generated: "2021-10-14T23:41:37.34726992Z"

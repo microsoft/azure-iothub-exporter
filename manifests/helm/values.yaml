@@ -1,4 +1,0 @@
-imageName: ghcr.io/microsoft/azure-iothub-exporter
-imageTag: $IMAGE_TAG
-containerPort: 8080
-servicePort: 8080

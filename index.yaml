@@ -2,8 +2,18 @@ apiVersion: v1
 entries:
   azure-iothub-exporter:
   - apiVersion: v2
+    appVersion: 0.0.1-14
+    created: "2021-10-15T01:38:47.639558556Z"
+    description: A Helm chart for Azure IoT Hub Exporter
+    digest: 35d6c9d14d5952f7a3cc8a24cd309fbe68d0873e136c0987fbfb97576d6003da
+    name: azure-iothub-exporter
+    type: application
+    urls:
+    - https://microsoft.github.io/azure-iothub-exporter/azure-iothub-exporter-0.0.1-14.tgz
+    version: 0.0.1-14
+  - apiVersion: v2
     appVersion: 0.0.1-13
-    created: "2021-10-15T01:37:27.457273153Z"
+    created: "2021-10-15T01:38:47.639002646Z"
     description: A Helm chart for Azure IoT Hub Exporter
     digest: 17c8825c15fd6d94488e9e1382d70519f2f99870b53764c68557b95ead84053d
     name: azure-iothub-exporter
@@ -13,7 +23,7 @@ entries:
     version: 0.0.1-13
   - apiVersion: v2
     appVersion: 0.0.1-12
-    created: "2021-10-15T01:37:27.456969037Z"
+    created: "2021-10-15T01:38:47.638784642Z"
     description: A Helm chart for Azure IoT Hub Exporter
     digest: f453e4c31230e6a9d2f84f577841003dbc2cfde9fc29948a2695a672d187d0e8
     name: azure-iothub-exporter
@@ -23,7 +33,7 @@ entries:
     version: 0.0.1-12
   - apiVersion: v2
     appVersion: 0.0.1-11
-    created: "2021-10-15T01:37:27.456309202Z"
+    created: "2021-10-15T01:38:47.638557337Z"
     description: A Helm chart for Azure IoT Hub Exporter
     digest: b2e8f51fcb50903a36c5fab3b8318f7c48a3cbdbdeb960d2951aa52c463bea15
     name: azure-iothub-exporter
@@ -33,7 +43,7 @@ entries:
     version: 0.0.1-11
   - apiVersion: v2
     appVersion: 0.0.1-10
-    created: "2021-10-15T01:37:27.449862962Z"
+    created: "2021-10-15T01:38:47.638323933Z"
     description: A Helm chart for Azure IoT Hub Exporter
     digest: eaba7feb62f08c4a9d303ffcfad7cd7593f0d959b1e1a044015208bfa2c2fef4
     name: azure-iothub-exporter
@@ -41,4 +51,4 @@ entries:
     urls:
     - https://microsoft.github.io/azure-iothub-exporter/azure-iothub-exporter-0.0.1-10.tgz
     version: 0.0.1-10
-generated: "2021-10-15T01:37:27.449357035Z"
+generated: "2021-10-15T01:38:47.637824624Z"

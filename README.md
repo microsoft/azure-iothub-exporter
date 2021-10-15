@@ -11,7 +11,7 @@ IoT Edge metrics are exported to IoT Hub by the metrics collector module as it i
 
 ## Motivation
 
-[Collect and transport metrics](https://docs.microsoft.com/en-us/azure/iot-edge/how-to-collect-and-transport-metrics?view=iotedge-2020-11&tabs=iothub) describes how to deliver metrics to IoT Hub via standard `device-to-cloud` channel. It's also possible to build a [cloud workflow] to push the metrics to Log Analytics workspace and consume them with `Azure Workbooks` and `Azure Alerts`. But waht if we build our observability appraoch on top of Prometheus and Grafana? Metrics are exposed by IoT Edge modules in Prometheues format and we want them to land in a Prometheus server so that we can use PromQL to build Grafana dashboards and Prometheues alerts. The purpose of Azure IoT Hub exporter is to close the gap between IoT Hub and Prometheus server.
+[Collect and transport metrics](https://docs.microsoft.com/en-us/azure/iot-edge/how-to-collect-and-transport-metrics?view=iotedge-2020-11&tabs=iothub) describes how to deliver metrics to IoT Hub via standard `device-to-cloud` channel. It's also possible to build a [cloud workflow](https://github.com/Azure-Samples/iotedge-logging-and-monitoring-solution#monitoring-architecture-reference) to push the metrics to Log Analytics workspace and consume them with `Azure Workbooks` and `Azure Alerts`. But waht if we build our observability approach on top of Prometheus and Grafana? Metrics are exposed by IoT Edge modules in Prometheues format and we want them to land in a Prometheus server so that we can use PromQL to build Grafana dashboards and Prometheus alerts. The purpose of Azure IoT Hub exporter is to close the gap between IoT Hub and Prometheus server.
 
 ![Dashboard](./images/dashboard.gif)
 
@@ -19,13 +19,13 @@ IoT Edge metrics are exported to IoT Hub by the metrics collector module as it i
 
 Add *Azure IoT Hub exporter* repository to Helm repos:
 
-```
+```shell
 helm repo add azure-iothub-exporter https://microsoft.github.io/azure-iothub-exporter/
 ```
 
 Install *Azure IoT Hub exporter*:
 
-```
+```shell
 helm upgrade -i azure-iothub-exporter azure-iothub-exporter/azure-iothub-exporter \
 --namespace <NAMESPACE> \
 --set eventHubConnectionString=<IoT Hub messages endpoint connection string>
@@ -38,7 +38,7 @@ Refer to [Read device-to-cloud messages from the built-in endpoint](https://docs
 
 Add the following job defintion to the prometheus config:
 
-```
+```yaml
 - job_name: azure-iothub-exporter
   scrape_interval: 1m
   metrics_path: /iotmetrics

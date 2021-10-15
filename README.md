@@ -10,7 +10,7 @@ gif
 
 Link to Grafa dashboards
 
-## Instalation
+## Installation
 
 ## Prometheus configuration
 
